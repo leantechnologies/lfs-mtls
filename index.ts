@@ -27,11 +27,12 @@ app.all('*', async (req, res) => {
       method: method as Method,
       data: body,
       params,
-      headers: { ...headers, Host: 'api.leantech.me' },
+      headers: { ...headers, host: 'api.leantech.me' },
       query,
       httpsAgent: agent,
     })
     const { status, data, headers: responseHeaders } = await axiosReq
+    delete responseHeaders['transfer-encoding']
     return res
       .set({ ...responseHeaders })
       .status(status)
