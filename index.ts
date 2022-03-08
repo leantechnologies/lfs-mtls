@@ -15,8 +15,14 @@ app.use(express.urlencoded({ extended: true }))
 app.all('*', async (req, res) => {
   try {
     const { headers, body, params, query, method, originalUrl } = req
+    delete headers['content-length']
+    delete headers['transfer-encoding']
+    delete headers['accept']
+    delete headers['content-type']
+    delete headers['connection']
+    delete headers['host']
     // @ts-ignore
-    const axiosReq = await axios({
+    const axiosReq = axios({
       url: `https://api.leantech.me${originalUrl}`,
       method: method as Method,
       data: body,
@@ -25,7 +31,7 @@ app.all('*', async (req, res) => {
       query,
       httpsAgent: agent,
     })
-    const { status, data, headers: responseHeaders } = axiosReq
+    const { status, data, headers: responseHeaders } = await axiosReq
     return res
       .set({ ...responseHeaders })
       .status(status)
