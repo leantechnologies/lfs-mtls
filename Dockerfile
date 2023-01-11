@@ -1,4 +1,4 @@
-FROM node:14.15.4-alpine
+FROM node:18.10.0-alpine
 RUN apk add curl jq gnupg nodejs npm
 WORKDIR /usr/server
 COPY . .
