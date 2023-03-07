@@ -18,7 +18,7 @@ app.all('*', async (req, res) => {
     const { region, sandbox, mtls } = headers;
     const mtlsValue = (mtls as string).toLowerCase() === 'true'
     const sandboxValue = (sandbox as string).toLowerCase() === 'true'
-    const host = `${mtlsValue && sandboxValue ? 'mtls' : ''}${sandboxValue ? '.sandbox' : '.api'}${region === 'ksa' ? '.sa' : ''}.leantech.me`
+    const host = `${mtlsValue && sandboxValue ? 'mtls.' : ''}${sandboxValue ? 'sandbox' : 'api'}${region === 'ksa' ? '.sa' : ''}.leantech.me`
     delete headers['content-length']
     delete headers['transfer-encoding']
     delete headers['accept']
